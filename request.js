@@ -1,19 +1,19 @@
-var course_Url ="http://saral.navgurukul.org/api/courses"
-var data = require("axios")
+var courses_Url ="http://saral.navgurukul.org/api/courses"
+var request = require("axios")
 const readlineSync = require('readline-sync');
 
-let id_num;
+let courses_id_num;
 let slug_id_num;
-function myFunction(saral_data) {
-  var b = data.get(saral_data)
+function courses_data(saral_data) {
+  var courses_data = data.get(saral_data)
   return b;
 }
 
-var x = myFunction(course_Url);
-// console.log(x);
+var whole_data = courses_data(courses_Url);
+
 
 var promise = new Promise((resolve, reject) => {
-    resolve(x);
+    resolve(whole_data)
     reject(err);
     
 })
@@ -21,31 +21,28 @@ promise.then((result)=>{
   course_data=(result.data.availableCourses)
   // console.log(course_data)
   id_array=[]
-  var i;
-
-  for (i = 0; i <course_data.length; i++){
-    index=(course_data[i])
+  var count;
+     
+  for (count = 0; count <course_data.length; count++){
+    index=(course_data[count])
     courses_name=index.name
-    
-    // console.log (courses_name)
     courses_id=index.id
     id=id_array.push(courses_id);
     console.log(courses_name,".............",courses_id)
-    // console.log (courses_id)
     // return (couses_name)
   }
 
 return(id_array)
 
 }).then((courses_Id_Array)=>{
-var userName = readlineSync.question("Enter your Course Id");
-id_num=(courses_Id_Array[userName-1]);
-console.log(id_num)
+var user_choice = readlineSync.question("Enter your Course Id");
+courses_id_num=(courses_Id_Array[user_choice-1]);
+console.log(courses_id_num)
 
 
 exercise_url= "http://saral.navgurukul.org/api/courses/"+id_num+"/exercises"
-Url_data_2= data.get(exercise_url)
-return (Url_data_2)
+data_by_id= data.get(exercise_url)
+return (data_by_id)
 })
 .then((paricular_exercises)=>{
   console.log(paricular_exercises)
@@ -73,14 +70,12 @@ return (Url_data_2)
   }
 console.log(slug_list)
 console.log(child_slug_list)
-// input for slug_data.
-var userName_2 = readlineSync.question("Enter the slug_numnber");
-slug_id_num=(slug_list[userName_2-1]);
-// console.log(slug_id_num)
-// console.log(id_num,slug_id_num)
-content_Url="http://saral.navgurukul.org/api/courses/"+id_num+"/exercise/getBySlug?slug="+(slug_id_num)
-Url_data_3= data.get(content_Url)
-return(Url_data_3)
+var user_slug = readlineSync.question("Enter the slug_numnber");
+slug_id_num=(slug_list[user_slug-1]);
+
+content_Url="http://saral.navgurukul.org/api/courses/"+courses_id_num+"/exercise/getBySlug?slug="+(slug_id_num)
+content_data= data.get(content_Url)
+return(content_data)
 
 })
   
