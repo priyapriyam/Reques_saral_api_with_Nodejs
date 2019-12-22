@@ -73,6 +73,7 @@ return (Url_data_2)
   }
 console.log(slug_list)
 console.log(child_slug_list)
+// input for slug_data.
 var userName_2 = readlineSync.question("Enter the slug_numnber");
 slug_id_num=(slug_list[userName_2-1]);
 // console.log(slug_id_num)
